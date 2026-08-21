@@ -24,18 +24,25 @@ namespace Projeto.Services
                 var linha = stream.ReadLine();
                 if (string.IsNullOrWhiteSpace(linha)) continue;
 
-                var dados = linha.Split(';'); // Troque para ',' se o arquivo for separado por vírgula
+                var dados = linha.Split(',');
+
+                if (dados.Length < 6) continue;
 
                 cidades.Add(new Cidade
                 {
-                    CidadeId = int.Parse(dados[0]),
-                    Nome = dados[1],
-                    Sigla = dados[2],
-                    IBGEMunicipio = int.Parse(dados[3]),
-                    Latitude = Convert.ToDecimal(dados[4].Replace(".", ","), new System.Globalization.CultureInfo("pt-BR")),
-                    Longitude = Convert.ToDecimal(dados[5].Replace(".", ","), new System.Globalization.CultureInfo("pt-BR"))
+                    CidadeId = string.IsNullOrWhiteSpace(dados[0]) ? 0 : int.Parse(dados[0]),
+                    Nome = dados[1].Replace("\"", ""),
+                    Sigla = dados[2].Replace("\"", ""),
+                    IBGEMunicipio = string.IsNullOrWhiteSpace(dados[3]) ? 0 : int.Parse(dados[3]),
+                    Latitude = string.IsNullOrWhiteSpace(dados[4]) ? 0 :
+                               Convert.ToDecimal(dados[4].Replace(".", ","), new System.Globalization.CultureInfo("pt-BR")),
+                    Longitude = string.IsNullOrWhiteSpace(dados[5]) ? 0 :
+                                Convert.ToDecimal(dados[5].Replace(".", ","), new System.Globalization.CultureInfo("pt-BR"))
                 });
             }
+
+            if (cidades.Count == 0) return false;
+
             return _repository.ImportarEmMassa(cidades);
         }
 
