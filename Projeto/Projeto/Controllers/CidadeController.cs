@@ -1,31 +1,43 @@
-﻿
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Projeto.Entidades;
+using System;
+using Projeto.Entidades; 
 using Projeto.Services;
+using Projeto.Repository;  
 
-namespace Projeto.Controllers
+namespace Projeto.Controllers 
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CidadesController : ControllerBase
     {
         private readonly CidadeServices _services;
-
         public CidadesController(CidadeServices services)
         {
             _services = services;
+            
         }
-
+      
         [HttpPost("importar")]
-        public IActionResult Importar(IFormFile arquivo)
+        public IActionResult ImportarCsv(IFormFile arquivo)
         {
             try
             {
-                if (arquivo == null || arquivo.Length == 0) return BadRequest("Arquivo inválido.");
-                if (_services.ImportarCsv(arquivo)) return Ok("Dados importados com sucesso.");
-                return BadRequest("Falha na importação.");
+                if (arquivo == null || arquivo.Length == 0)
+                    return BadRequest("Arquivo não enviado ou vazio.");
+
+                // Chama a mágica que está lá no Service
+                var sucesso = _services.ImportarCsv(arquivo);
+
+                if (sucesso)
+                    return Ok(new { mensagem = "Cidades importadas com sucesso!" });
+                else
+                    return BadRequest("O arquivo estava vazio ou com erro.");
             }
-            catch (Exception ex) { return Problem(title: "Erro", detail: ex.Message, statusCode: 500); }
+            catch (Exception ex)
+            {
+                return Problem(detail: ex.Message, statusCode: 500);
+            }
         }
 
         [HttpGet]
