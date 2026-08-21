@@ -25,7 +25,10 @@ namespace Projeto.Repository
                     transacao = _context.GetConexao().BeginTransaction();
 
                     cmd.CommandText = @"insert into Cidade(CidadeId, Nome, Sigla, IBGEMunicipio, Latitude, Longitude) 
-                                        values (@CidadeId, @Nome, @Sigla, @IBGEMunicipio, @Latitude, @Longitude)";
+                    values (@CidadeId, @Nome, @Sigla, @IBGEMunicipio, @Latitude, @Longitude)
+                    ON DUPLICATE KEY UPDATE 
+                    Nome=@Nome, Sigla=@Sigla, IBGEMunicipio=@IBGEMunicipio, 
+                    Latitude=@Latitude, Longitude=@Longitude";
 
                     foreach (var cidade in cidades)
                     {
