@@ -1,4 +1,4 @@
-# 🏙️ API Cidades & Alunos
+#  API Cidades & Alunos
 
 API REST em **C# / ASP.NET Core** com **MySQL**, desenvolvida como projeto de avaliação da disciplina de Linguagens de Programação I. 
 O sistema permite importar dados geográficos a partir de um arquivo CSV, realizar o CRUD completo de cidades e alunos, e inclui um módulo para conversão, armazenamento e consulta de fotos de perfil em formato Base64.
@@ -11,20 +11,20 @@ O sistema permite importar dados geográficos a partir de um arquivo CSV, realiz
 
 ---
 
-## 📌 Sobre o projeto
+##  Sobre o projeto
 
 O projeto simula um cenário real de backend: receber um arquivo bruto (CSV com milhares de cidades brasileiras), processá-lo em memória e expor os dados através de uma API REST completa e documentada de forma automatizada.
 
 **Principais funcionalidades:**
-- 📥 Importação em massa de cidades via upload de arquivo CSV.
-- 🔎 Consulta de cidades por ID, por estado (UF) ou listagem completa.
-- 🎓 Cadastro e gerenciamento de Alunos com vínculo de Cidades.
-- 📷 Upload de fotos de alunos (conversão em backend e armazenamento em Base64).
-- 📖 Documentação interativa e visual da API via OpenAPI (Scalar).
+-  Importação em massa de cidades via upload de arquivo CSV.
+-  Consulta de cidades por ID, por estado (UF) ou listagem completa.
+-  Cadastro e gerenciamento de Alunos com vínculo de Cidades.
+-  Upload de fotos de alunos (conversão em backend e armazenamento em Base64).
+-  Documentação interativa e visual da API via OpenAPI (Scalar).
 
 ---
 
-## 🛠️ Tecnologias
+##  Tecnologias
 
 | Camada | Tecnologia |
 |---|---|
@@ -37,7 +37,7 @@ O projeto simula um cenário real de backend: receber um arquivo bruto (CSV com 
 
 ---
 
-## 🏗️ Arquitetura
+##  Arquitetura
 
 O projeto segue a arquitetura em camadas, utilizando a Injeção de Dependência nativa do .NET e dispensando o uso de ORMs (como Entity Framework) para priorizar o controle direto das transações via ADO.NET:
 
@@ -79,7 +79,7 @@ IntroAPI/
 
 ---
 
-## 🚀 Como rodar o projeto
+##  Como rodar o projeto
 
 ### Pré-requisitos
 
@@ -125,7 +125,7 @@ https://localhost:{porta}/scalar/v1
 
 ---
 
-## 📚 Endpoints Principais
+##  Endpoints Principais
 
 ### Cidades
 
@@ -148,7 +148,7 @@ https://localhost:{porta}/scalar/v1
 
 ---
 
-## 💡 Decisões Técnicas
+##  Decisões Técnicas
 
 * **Transações Manuais:** A importação em massa das cidades utiliza `MySqlTransaction` (`BeginTransaction` e `Commit`), garantindo a integridade do banco: se uma linha do CSV falhar, nenhuma cidade é salva pela metade.
 * **Leitura Nativa:** Dispensa de pacotes de terceiros (como `CsvHelper`). O CSV é lido diretamente via `StreamReader`, tratando culturas numéricas e quebras de linha dinamicamente.
@@ -156,7 +156,7 @@ https://localhost:{porta}/scalar/v1
 
 ---
 
-## ✍️ Autor
+##  Autor
 
 **Caio Aranda**
 
